@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang = hu>
+
+    <head>
+        <title>Fajer</title>
+        
+        <link rel=stylesheet href="main.css"> 
+        <script type="text/javascript" src="main.js" ></script>
+        <script type="text/javascript" src="socket_client.js" ></script>
+        <script src="socket.io/socket.io.js"></script>
+        
+
+    </head>
+    <body id="body">
+
+
+        <div id="bet_pool">0</div>
+
+       
+        <div class="card_pool">
+            <div class=card><img class="image" id="imgPool1" src="cards/back.png"></div>
+            <div class=card><img class="image" id="imgPool2" src="cards/back.png"></div>
+            <div class=card><img class="image" id="imgPool3" src="cards/back.png"></div>
+            <div class=card><img class="image" id="imgPool4" src="cards/back.png"></div>
+        </div>
+
+        <div class="hand">
+            <div class=card><img class="image" id="imgHand1" src="cards/back.png"></div>
+            <div class=card><img class="image" id="imgHand2" src="cards/back.png"></div>
+            <div class=card><img class="image" id="imgHand3" src="cards/back.png"></div>
+        </div>
+
+        <div class="topPlayer">
+            <div class=card><img class="image" id="topPlayer1" src="cards/back.png"></div>
+            <div class=card><img class="image" id="topPlayer2" src="cards/back.png"></div>
+            <div class=card><img class="image" id="topPlayer3" src="cards/back.png"></div>
+        </div>
+
+        <div class="rightPlayer">
+            <div class=card><img class="image" id="rightPlayer1" src="cards/back.png"></div>
+            <div class=card><img class="image" id="rightPlayer2" src="cards/back.png"></div>
+            <div class=card><img class="image" id="rightPlayer3" src="cards/back.png"></div>
+        </div>
+
+        <div class="leftPlayer">
+            <div class=card><img class="image" id="leftPlayer1" src="cards/back.png"></div>
+            <div class=card><img class="image" id="leftPlayer2" src="cards/back.png"></div>
+            <div class=card><img class="image" id="leftPlayer3" src="cards/back.png"></div>
+        </div>
+
+        <div class="balance" id="balance">ERROR!</div>
+        <script>
+            var egyenleg = 100;
+            document.getElementById("balance").innerHTML = "Egyenleged: ".concat(egyenleg).concat("Ft");
+        </script>
+
+
+
+        <div id="chat">
+            <div id="menu">
+                <p class="udv">Üdv a játékban!<b></b></p>
+            
+            </div>
+                <ul>
+
+                </ul>
+                <input name="uzenet" type="text" id="uzenet" minlength="1" maxlength="3" />
+                <button name="kuldes" id="kuldes" onclick="uzenet_kuldes()" class="gomb">Küldés</button>
+            </div>
+
+
+
+
+
+
+        <button class="megadom gomb" onclick="megadom()" id="megadom">Megadom</button>
+        <button class="emelek gomb" onclick="emeles_lekeres()" id="emelek">Emelek</button>
+
+        <input type="text" class="bevitel" id="bevitel" value="Mennyivel emelsz?" onfocus="this.value=''" minlength="1" maxlength="3">
+
+
+        <button class="megnezem gomb" onclick="megnezem()" id="megnezem">Megnézem</button> 
+
+    </body>
+</html>
