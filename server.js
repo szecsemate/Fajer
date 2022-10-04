@@ -14,7 +14,6 @@ const http = require("http").Server(app);
 
 const io = require("socket.io")(http);
 
-console.log(__dirname)
 app.get("/", (req,res) =>
 {
     console.log("test")
