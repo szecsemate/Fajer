@@ -1,3 +1,4 @@
+
 const express = require("express");
 const { Socket } = require("socket.io");
 const app = express();
@@ -24,10 +25,17 @@ app.get("/", (req,res) =>
 io.on("connection" , socket =>
 {
     console.log(socket.id)
+
+      socket.on("send-chat", (string)=>
+      {
+      io.emit("receive-chat", string);
+      })
 });
+
 
 
 http.listen(port, (req,res) =>
 {
     console.log("http is listening on port " + port)
 });
+

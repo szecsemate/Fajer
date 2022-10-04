@@ -89,15 +89,24 @@ var vak_player = 0;
 //bevitel
 var input = document.getElementById("bevitel")
 var emeles_erteke;
-function emeles_lekeres() {
-    emeles_erteke = document.getElementById("bevitel").value;
-    console.log(emeles_erteke);
-    document.getElementById("bevitel").value = "Mennyivel emelsz?";
-    document.getElementById("emelek").blur();
-}
+
 function megadom() {
     document.getElementById("megadom").blur();
 }
 function uzenet_kuldes() {
-    document.getElementById("kuldes").blur();
+    document.getElementById("chat-button").blur();
 }
+
+function emeles_lekeres() {
+  if (isNaN(document.getElementById("bevitel").value) == false)
+  {
+      emeles_erteke = document.getElementById("bevitel").value;
+  }
+  else {
+      alert("HIBA! Probald ujra!");
+  }
+  console.log(emeles_erteke);
+  document.getElementById("bevitel").value = "Mennyivel emelsz?";
+  document.getElementById("emelek").blur();
+}
+
