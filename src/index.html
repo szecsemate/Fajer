@@ -12,7 +12,7 @@
     <body id="body">
 
 
-        <div id="bet_pool">0</div>
+        <div id="bet_pool"></div>
 
        
         <div class="card_pool">
@@ -48,8 +48,7 @@
 
         <div class="balance" id="balance">ERROR!</div>
         <script>
-            var egyenleg = 100;
-            document.getElementById("balance").innerHTML = "Egyenleged: ".concat(egyenleg).concat("Ft");
+      
         </script>
 
 
@@ -70,12 +69,12 @@
 
 
         <button class="megadom gomb" onclick="megadom()" id="megadom">Megadom</button>
-        <button class="emelek gomb" onclick="emeles_lekeres()" id="emelek">Emelek</button>
+        <button class="emelek gomb" onclick="emel()" id="emelek">Emelek</button>
 
         <input type="text" class="bevitel" id="bevitel" value="Mennyivel emelsz?" onfocus="this.value=''" minlength="1" maxlength="3">
 
 
-        <button class="megnezem gomb" onclick="megnezem()" id="megnezem">Megnézem</button> 
+        <button class="megnezem gomb" onclick="megnez()" id="megnezem">Megnézem</button> 
 
 
 
