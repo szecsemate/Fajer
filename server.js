@@ -29,17 +29,40 @@ app.get("/Jatek", (req,res) =>
 });
 
 var playercount = 0;
-
+var playerlist = [4];
+var pool = 0;
 
     io.on("connection" , socket =>
     {
-        if(playercount < 4)
+
+        
+        if(playercount < 10)
         {
             playercount++
+            playerlist[playercount-1] = socket.id
+         
+            //pool and balance stuff
             var egyenleg = 100
-            console.log(socket.id)
             
-            socket.emit("cards", cards[playercount*3], cards[playercount*3+1], cards[playercount*3+2])
+            socket.on("bet", (mennyi) =>
+            {
+                if(egyenleg-mennyi >=0)
+                {
+                    pool+= eval(mennyi)
+                    egyenleg -= mennyi
+                    io.emit("refresh", pool, egyenleg)
+                }
+                else
+                {
+                    socket.emit("error", "Nince elég pénzed")
+                }
+            })
+            
+            socket.on("request_cards", () =>{
+
+                var number = playernumber(socket.id, playerlist);
+                socket.emit("cards", cards[number*3], cards[number*3+1], cards[number*3+2])
+            })
     
             socket.on("send-chat", (string)=>
             {
@@ -114,3 +137,17 @@ var cards=new Array(
       
         return array;
       }
+
+      function playernumber(id, list)
+      {
+        for(var i= 0; i < list.length; i++)
+        {
+            if(id == list[i])
+            {
+                return i;
+            }
+        }
+        return null;
+      }
+
+      

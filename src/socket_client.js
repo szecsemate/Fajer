@@ -5,10 +5,6 @@ document.getElementById("balance").innerHTML = "Egyenleged: ".concat(egyenleg).c
 
 var socket = undefined;
 
-var Kartya1
-var Kartya2
-var Kartya3
-
 window.onload = function()
 {
     socket = io();
@@ -24,11 +20,7 @@ window.onload = function()
         appendMessage(string)
     })
 
-    socket.on("cards", (kartya1, kartya2, kartya3) => {
-        Kartya1 = kartya1
-        Kartya2 = kartya2
-        Kartya3 = kartya3
-    })
+   
 
     socket.on("full", () =>
     {
@@ -36,6 +28,15 @@ window.onload = function()
         window.location.replace("/menu/menu.html")
     })
 
+    socket.on("refresh",(pool_value, egyenleg) =>{
+        document.getElementById("bet_pool").textContent = pool_value
+        console.log(pool_value)
+        document.getElementById("balance").textContent = "Egyenleged: ".concat(egyenleg).concat("Ft");
+    })
+
+    socket.on("error",(message) =>{
+        alert(message)
+    })
 }
 
 
@@ -53,20 +54,40 @@ function appendMessage(message) {
   }
 
 
+  //akkor fut ha a emel gombot megnyomják
   function emel()
   {
     var mennyivel = emeles_lekeres()
-    bent_van += mennyivel 
-
     socket.emit("bet", mennyivel)
-
-    egyenleg -= mennyivel
-    document.getElementById("balance").innerHTML = "Egyenleged: ".concat(egyenleg).concat("Ft");
   }
 
-  function megnez() {
-    document.getElementById("imgHand1").src = "cards/" + Kartya1;
-    document.getElementById("imgHand2").src = "cards/" + Kartya2;
-    document.getElementById("imgHand3").src = "cards/" + Kartya3;
-    document.getElementById("megnezem").blur();
+
+  //akkor fut ha a megnézem/dobom gombot megnyomják
+  function megnez_dob() { 
+    var gomb = document.getElementById("megnezem")
+    if(gomb.innerHTML != "Dobom")
+    {
+        gomb.innerHTML="Dobom";
+
+        socket.emit("request_cards");
+        socket.on("cards", (kartya1, kartya2, kartya3) => {
+            document.getElementById("imgHand1").src = "cards/" + kartya1;
+            document.getElementById("imgHand2").src = "cards/" + kartya2;
+            document.getElementById("imgHand3").src = "cards/" + kartya3;
+            document.getElementById("megnezem").blur();
+        })
+    }
+    else
+    {
+        document.getElementById("imgHand1").style.filter = "brightness(20%)"
+        document.getElementById("imgHand2").style.filter = "brightness(20%)"
+        document.getElementById("imgHand3").style.filter = "brightness(20%)"
+        document.getElementById("megnezem").disabled = true;
+        document.getElementById("megnezem").style.filter =  "brightness(40%)";
+        document.getElementById("emelek").disabled = true;  
+        document.getElementById("emelek").style.filter =  "brightness(40%)";
+        document.getElementById("megadom").disabled = true; 
+        document.getElementById("megadom").style.filter =  "brightness(40%)";
+        document.getElementById("bevitel").style.filter =  "brightness(40%)";
+    } 
 }
