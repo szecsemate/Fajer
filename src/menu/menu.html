@@ -5,13 +5,21 @@
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
     <link rel=stylesheet href="menu/menu.css">
-    <script type="text/javascript" src="main.js"></script>
-    <script type="text/javascript" src="socket_client.js"></script>
+    <link rel="icon" type="image" href="fajer_logo2.png">
     <script src="socket.io/socket.io.js"></script>
 
 
 </head>
 <body id="body">
-    <div class="gomb"><a href="../Jatek"><button class="indit gomb" id="indit">Játék indítása</button></a></div>
+    <div class="kep"><img src="menu/fajer.png" class="kep" ></div>  
+    <div class="kozep">
+        <input type="text" class="bevitel" id="jatekosnev_bevitel" value="Játékosnév" onfocus="this.value=''" minlength="1" maxlength="15"><br/>
+        <input type="text" class="bevitel" id="jelszo_bevitel" value="Jelszó" onfocus="this.value=''" minlength="1" maxlength="15">
+    </div>
+    <div class="eltolas">
+        <div class="gomb_bal"><a href="index.html"><button class="login gomb_bal" id="login">Bejelentkezés</button></a></div>
+        <div class="gomb_jobb"><a href="index.html"><button class="singup gomb_jobb" id="signup">Regisztráció</button></a></div>
+        <div class=""><a href="../Jatek"><button class="indit gomb" id="indit">Játék indítása vendégként</button></a></div>
+    </div>
 </body>
 </html>

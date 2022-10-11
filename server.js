@@ -17,11 +17,15 @@ const io = require("socket.io")(http);
 
 app.get("/", (req,res) =>
 {
-    console.log("test")
     res.sendFile(path.join(__dirname, "src/menu/menu.html"))
 });
 
 app.use(express.static(__dirname + "/src"));
+
+app.get("/Szabalyok", (req,res) =>
+{
+    res.sendFile(path.join(__dirname, "src/rules/szabalyok.html"))
+});
 
 app.get("/Jatek", (req,res) =>
 {
@@ -36,13 +40,14 @@ var pool = 0;
     {
 
         
-        if(playercount < 10)
+        if(playercount < 4)
         {
             playercount++
             playerlist[playercount-1] = socket.id
          
             //pool and balance stuff
-            var egyenleg = 100
+            var egyenleg = 1000
+            var money_in = 0;
             
             socket.on("bet", (mennyi) =>
             {
