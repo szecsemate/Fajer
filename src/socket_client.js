@@ -1,4 +1,4 @@
-var egyenleg = 100;
+var egyenleg = 1000;
 var bent_van = 0;
 
 document.getElementById("balance").innerHTML = "Egyenleged: ".concat(egyenleg).concat("Ft");
@@ -28,12 +28,14 @@ window.onload = function()
         window.location.replace("/menu/menu.html")
     })
 
-    socket.on("refresh",(pool_value, egyenleg) =>{
-        document.getElementById("bet_pool").textContent = pool_value
-        console.log(pool_value)
+    socket.on("bal_ref",(egyenleg) =>{
         document.getElementById("balance").textContent = "Egyenleged: ".concat(egyenleg).concat("Ft");
     })
 
+    socket.on("pool_ref",(pool_value) =>{
+        document.getElementById("bet_pool").textContent = pool_value
+        console.log(pool_value)
+    })
     socket.on("error",(message) =>{
         alert(message)
     })
