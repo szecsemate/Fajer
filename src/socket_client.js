@@ -13,7 +13,12 @@ window.onload = function()
         console.log(socket.id);
     })
     
-   
+   socket.on("setup", (role) =>{
+        if(role != "blind")
+        {
+            megnez_dob()
+        }
+   })
     
     socket.on("receive-chat", (string) => {
         console.log(string)
@@ -24,8 +29,8 @@ window.onload = function()
 
     socket.on("full", () =>
     {
-        alert("You fucked up")
-        window.location.replace("/menu/menu.html")
+        alert("The game is full!")
+        window.location.replace("/")
     })
 
     socket.on("bal_ref",(egyenleg) =>{
@@ -63,6 +68,7 @@ function appendMessage(message) {
     socket.emit("bet", mennyivel)
   }
 
+  
 
   //akkor fut ha a megnézem/dobom gombot megnyomják
   function megnez_dob() { 

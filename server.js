@@ -35,6 +35,7 @@ app.get("/Jatek", (req,res) =>
 var playercount = 0;
 var playerlist = [4];
 var pool = 0;
+var blind = 0;
 
     io.on("connection" , socket =>
     {
@@ -47,7 +48,7 @@ var pool = 0;
          
             //pool and balance stuff
             var egyenleg = 1000
-            var money_in = 0;
+           
             
             socket.on("bet", (mennyi) =>
             {
@@ -55,7 +56,6 @@ var pool = 0;
                 {
                     pool+= eval(mennyi)
                     egyenleg -= mennyi
-                    money_in += mennyi
                     socket.emit("bal_ref", egyenleg)
                     io.emit("pool_ref", pool)
                 }
@@ -64,6 +64,21 @@ var pool = 0;
                     socket.emit("error", "Nince elég pénzed")
                 }
             })
+
+
+            console.log(blind)
+            console.log(playercount-1)
+            if(playercount-1 == blind)
+            {
+                socket.emit("setup", "blind")
+            }
+            else
+            {
+                socket.emit("setup", "player")
+            }
+
+        
+           
             
             socket.on("request_cards", () =>{
 
@@ -76,6 +91,7 @@ var pool = 0;
             {
             io.emit("receive-chat", string);
             })
+
         }
         else
         {
@@ -118,7 +134,7 @@ let ertekek = [
     ["Tell-B-09.png", 9,  "TOK",  "KILENC"],
     ["Tell-B-10.png", 10, "TOK",  "TIZ"],
     ["Tell-B-J1.png", 10, "TOK",  "ALSO"],
-    ["Tell-B-J2.png", 10, "TOK",  "FELSO"],
+    ["Tell-B-J2.png", 10, "TOK",  "FELSO"],0
     ["Tell-B-KI.png", 10, "TOK",  "KIRALY"],
     ["Tell-H-0A.png", 11, "SZIV", "ASZ"],
     ["Tell-H-07.png", 7, "SZIV", "HET"],
@@ -139,6 +155,10 @@ let ertekek = [
 ];
 ertekek = shuffle(ertekek);
 
+
+function valuecards(playernumber)
+{
+
 var szinertek = new Array(
     0, //MAKK
     0, //TOK
@@ -146,8 +166,7 @@ var szinertek = new Array(
     0, //OSZ
     0, //sor
 )
-function valuecards(playernumber)
-{
+
     for (var i = 0; i < 3; i++) {
         if(ertekek[playernumber*3+i][2] === "MAKK"){
             szinertek[0] += ertekek[playernumber*3+i][1];
@@ -187,6 +206,10 @@ function valuecards(playernumber)
     }
     return Math.max.apply(null, szinertek);
 
+    for(var i = 0; i < szinertek.length; i++)
+    {
+        szinertek[i] = 0;
+    }
 }
 
 
